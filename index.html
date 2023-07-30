@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 50px;
+            text-align: center;
+        }
+        svg {
+            margin-top: calc(50vh - 150px);
+            max-width: 800px;
+        }
+    </style>
+    <title>Arimac Logo</title>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 900.76 197.56">
+        <g id="elements" style="isolation: isolate;">
+            <defs id="dynamic-definitions">
+                <linearGradient id="path-6t2fpeeaih--fill" x1="701.94" y1="157.91" x2="572.9" y2="-81.47" spreadMethod="pad"
+                    gradientUnits="userSpaceOnUse">
+                    <stop id="path-6t2fpeeaih--fill-stop-0" offset="0" stop-color="rgb(255,37,37)"></stop>
+                    <stop id="path-6t2fpeeaih--fill-stop-1" offset="1" stop-color="rgb(151,71,255)"></stop>
+                </linearGradient>
+                <linearGradient id="path-vo8o41dieu--fill" x1="369.75" y1="78" x2="630.36" y2="195.14" spreadMethod="pad"
+                    gradientUnits="userSpaceOnUse">
+                    <stop id="path-vo8o41dieu--fill-stop-0" offset="0" stop-color="rgb(255,37,37)"></stop>
+                    <stop id="path-vo8o41dieu--fill-stop-1" offset="1" stop-color="rgb(151,71,255)"></stop>
+                </linearGradient>
+            </defs>
+            <defs id="definitions"></defs>
+            <g id="elements-wrapper">
+                <path id="path-6t2fpeeaih"></path>
+                <path id="path-lbw2kqhrer"></path>
+                <path id="path-pf9whxzvn3"></path>
+                <path id="path-8mdkidesv1d"></path>
+                <path id="path-lc541e1grrk"></path>
+                <path id="path-o2pew1itina"></path>
+                <path id="path-w4v4e2235hc"></path>
+                <path id="path-avjgj0hvj9"></path>
+                <path id="path-30qlozpk46t"></path>
+                <path id="path-23zucpmapa4"></path>
+                <path id="path-iawi982mgte"></path>
+                <path id="path-yumk0p1tfqh"></path>
+                <path id="path-w2ajz6eswai"></path>
+                <path id="path-vo8o41dieu"></path>
+            </g>
+        </g>
+    </svg>
+    <script type="module">
+        // frame duration of animation
+        const time = 10
+        // fetch animation frames data
+        const data = await fetch('index.json').then(x => x.json())
+        // get all element ids
+        const eids = Object.keys(data)
+        // element selectors array
+        const earr = {}
+        // for each element id
+        for (let i = 0; i < eids.length; i++) {
+            // current id
+            const id = eids[i]
+            // fetch by query selector
+            earr[id] = document.querySelector('#' + id)
+        }
+        // animation attributes
+        const attr = ['d', 'transform', 'fill', 'stroke', 'style', 'opacity']
+        // method to sleep
+        const sleep = () => new Promise(resolve => setTimeout(resolve, time))
+        // method to animate
+        const animate = async () => {
+            // for each frame
+            for (let i = 0; i < 133; i++) {
+                // for each element
+                for (let e = 0; e < eids.length; e++) {
+                    // current path id
+                    const id = eids[e]
+                    // current path element
+                    const path = earr[id]
+                    // current path data
+                    const pdat = data[id]
+                    // for each attribute
+                    for (let a = 0; a < attr.length; a++) {
+                        // current attribute
+                        const atr = attr[a]
+                        // current attribute data
+                        const adt = pdat[atr][i]
+                        // console.log(adt)
+                        // check for not null state
+                        if (adt !== null) {
+                            // update attribute
+                            path.setAttribute(atr, adt)
+                        }
+                    }
+                }
+                // frame delay
+                await sleep()
+            }
+        }
+        // start animation
+        animate()
+    </script>
+</body>
+</html>
